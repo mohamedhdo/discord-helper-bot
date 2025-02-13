@@ -38,12 +38,14 @@ async def hello(ctx):
     await ctx.send(f"Hello {ctx.author.mention} , anything you need ? ")
 
 
-@bot.command(name="services")
+@bot.command(name="guide")
 async def services(ctx):
-    response = f"hello {ctx.author.mention} , here is our services :\n"
-    response += "To create a poll use the command !poll \n"
-    response += "To create a survey use the command !survey \n"
-    response += "To create an event use the command !event \n"
+    response = f"hello {ctx.author.mention} , here is what you can do :\n"
+    response += "To create a poll use the command !poll question option1 option2 ... option10\n"
+    response += "To delete a poll use the command !deletepoll question  \n"
+    response+="Note : -You can list at least 2 and at most 10 options for your poll \n"
+    response+="            -You can only delete polls that you created\n"
+    response+='            -The question must be between quotes ("")'
     await ctx.send(response)
 
 
@@ -68,6 +70,11 @@ async def create_poll(ctx,question,*options):
 
     poll_messages[question.lower()]=[poll.id,ctx.author.id]
 
+
+
+
+
+
 @bot.command(name="deletepoll")
 async def delete_poll(ctx,question):
     if question.lower() in poll_messages:
@@ -85,6 +92,19 @@ async def delete_poll(ctx,question):
         await ctx.reply("Invalid poll id",mention_author=False)
 
     poll_messages.pop(question)
+
+
+@bot.command(name="event")
+async def create_event(ctx):
+    pass
+
+
+
+@bot.command(name="deleteevent")
+async def delete_event(ctx):
+    pass
+
+
 
 
 
